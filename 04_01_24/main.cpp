@@ -22,13 +22,12 @@ int main()
 {
     int x = 79;
     int *p = nullptr;
-    p = &x;
-    std::cout << &x << std::endl;
-    std::cout << *p << std::endl;
-    p = newArray();
-    delete[] p;
-
-    drink **drinks;
+    p = &x; //set a pointer variable p at the memory location of variable x
+    std::cout << &x << std::endl; //Output the memory address
+    std::cout << *p << std::endl; // Output the contents of the memory address for x using pointer p
+    p = newArray(); //sets p equal to the returned result of the newArray function
+    delete[] p; //delete the array in order to free up memory for potential reallocation
+    drink **drinks; //Creates a double pointer variable called drinks in order to create the drink class without a constructor.
 
     sizeType drinkSize;
     baseType drinkBase;
@@ -42,20 +41,21 @@ int main()
     drinkTemp = inputDrinkTemperature();
     flavor = inputDrinkFlavor();
     dairy = inputDrinkDairy();
-    myDrink = new drink(drinkBase, drinkTemp, drinkSize, dairy, flavor);
+    //line 46
+    myDrink = new drink(drinkBase, drinkTemp, drinkSize, dairy, flavor);//Set a new pointer with a drink class called myDrink with parameters drinkBase drinkTemp,drinkSize, dairy and flavor
 
     // int numDrinks = inputInt("How many drinks do you want? ", numGT0);
-    int numDrinks = 1;
-    drinks = new drink *[numDrinks];
+    int numDrinks = 1; //initialize the numDrinks integer to 1
+    drinks = new drink *[numDrinks]; // Create a dynamic array of drink class variables with the index of numDrinks
 
     while (yN == 'Y')
     {
         drinkSize = inputDrinkSize();
         drinkBase = inputDrinkBase();
         drinkTemp = inputDrinkTemperature();
-        flavor = inputDrinkFlavor();
+        flavor = inputDrinkFlavor(); sets the variable flavor by calling the input drink flavor function
         dairy = inputDrinkDairy();
-        drinks[numDrinks - 1] = new drink(drinkBase, drinkTemp, drinkSize, dairy, flavor);
+        drinks[numDrinks - 1] = new drink(drinkBase, drinkTemp, drinkSize, dairy, flavor);//fills the memory of the drinks array with the result of creating a new drink class variable with the parameters
         // drink d(bases[drinkBase - 1], temps[drinkTemp - 1], sizes[drinkSize - 1], dairy, flavor);
         std::cout << drinks[numDrinks - 1]->tostring() << std::endl;
         std::cout << "Would you like another drink? ";
@@ -70,14 +70,14 @@ int main()
         }
         if (yN == 'Y')
         {
-            drink **d = drinks;
-            drinks = new drink *[++numDrinks];
-            for (int i = 0; i < numDrinks - 1; i++)
+            drink **d = drinks; //constructs class drink using a pointer
+            drinks = new drink *[++numDrinks]; //Adds a new drink to the array storing the drink class variables
+            for (int i = 0; i < numDrinks - 1; i++) // Sets up a for loop to access the array
             {
-                drinks[i] = d[i];
+                drinks[i] = d[i]; //sets the value in the d array at index i to the value in the drinks array at index i
             }
-            delete[] d;
-        }
+            delete[] d; //delete array d to free up memory
+        } //close for loop
     }
 
     std::cout << "The list of drinks is:" << std::endl;
